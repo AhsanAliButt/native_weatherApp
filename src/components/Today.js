@@ -1,7 +1,16 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import moment from 'moment';
 const date = 'Monday, June 7';
-const Date = () => {
+
+const Today = () => {
+  const [date, setDate] = useState('');
+  useEffect(() => {
+    const time = new Date();
+    const selectedDate = moment(time).format('dddd, MMMM Do');
+    setDate(selectedDate);
+  }, []);
+
   return (
     <View>
       <Text style={styles.header}>{date}</Text>
@@ -9,7 +18,7 @@ const Date = () => {
   );
 };
 
-export default Date;
+export default Today;
 
 const styles = StyleSheet.create({
   header: {

@@ -1,20 +1,16 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
-const city = 'Asia/Faisalabad';
-const lat = '4.22N';
-const lon = '50E';
-
-const City = () => {
+const City = ({lon, lat, city, country, timezone}) => {
   return (
     <View
       style={{
         flexDirection: 'column',
         justifyContent: 'center',
       }}>
-      <Text style={styles.header}> {city}</Text>
+      <Text style={styles.header}>{timezone}</Text>
       <Text style={styles.subHeader}>
-        {lat} {lon}
+        {lat}N {lon}E
       </Text>
     </View>
   );

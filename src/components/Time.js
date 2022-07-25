@@ -1,9 +1,17 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import moment from 'moment';
 
-const time = '12:00 am';
+// const time = '12:00 am';
 
-const Time = () => {
+const Time = ({current, lanlat, timezone}) => {
+  const [time, setTime] = useState('');
+  useEffect(() => {
+    const time = new Date();
+    const selectedTime = moment(time).format('h:mm a');
+    setTime(selectedTime);
+  }, []);
+
   return (
     <View>
       <Text style={styles.header}>{time}</Text>
