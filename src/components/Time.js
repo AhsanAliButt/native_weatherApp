@@ -2,8 +2,6 @@ import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import moment from 'moment';
 
-// const time = '12:00 am';
-
 const Time = ({current, lanlat, timezone}) => {
   const [time, setTime] = useState('');
   useEffect(() => {

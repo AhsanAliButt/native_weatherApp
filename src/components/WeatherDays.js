@@ -18,8 +18,8 @@ const CurrentTempElement = ({data}) => {
             {' '}
             {moment(data.dt * 1000).format('dddd')}{' '}
           </Text>
-          <Text style={styles.temp}> Night -{data.temp.night} </Text>
-          <Text style={styles.temp}> Day - {data.temp.day} </Text>
+          <Text style={styles.temp}> Night -{data.temp.night} &#176;C</Text>
+          <Text style={styles.temp}> Day - {data.temp.day}&#176;C </Text>
         </View>
       </View>
     );

@@ -11,14 +11,17 @@ const Details = ({
   wind,
   timezone,
 }) => {
-  console.log('Timezone', timezone);
-  console.log('Sunrise', current);
+  // console.log('Sunrise', current.sunrise);
   return (
     <View style={styles.container}>
-      <WeatherItem title="Humidity" value={humidity ? humidity : ''} unit="%" />
+      <WeatherItem
+        title="Humidity"
+        value={current ? current.humidity : ''}
+        unit="%"
+      />
       <WeatherItem
         title="Pressure"
-        value={pressure ? pressure : ''}
+        value={current ? current.pressure : ''}
         unit="hpa"
       />
       <WeatherItem
@@ -37,7 +40,11 @@ const Details = ({
             : ''
         }
       />
-      <WeatherItem title="Wind" value={wind ? wind : ''} unit="" />
+      <WeatherItem
+        title="Wind"
+        value={current ? current.wind_speed : ''}
+        unit=""
+      />
     </View>
   );
 };

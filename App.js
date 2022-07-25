@@ -24,25 +24,8 @@ const API_KEY = 'a77ce0cdbc8a7ab33d5ba6e407ed3106';
 const App = () => {
   const [data, setData] = useState('');
 
-  console.log('data is here', data);
-
-  console.log('data', data.lat);
-
-  // const lat = data.lat;
-  // const lon = data.lon;
-  const humidity = data.current.humidity;
-  const pressure = data.current.pressure;
-  const wind = data.current.wind_speed;
-  // const sunrise = data.current.sunrise;
-  // const sunset = data.current.sunset;
-
-  const lat = '37.8267';
-  const lon = '-122.4233';
-  // const humidity = '0';
-  // const pressure = '0';
-  // const wind = '0';
-  const sunrise = '0';
-  const sunset = '0';
+  const lat = data.lat;
+  const lon = data.lon;
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -59,11 +42,6 @@ const App = () => {
       `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=hourly,minutely&units=metric&appid=${API_KEY}`,
     );
     const responseData = await response.json();
-
-    console.log(responseData);
-
-    // console.log('Latitude', responseData.lat);
-    // console.log('Longitude', responseData.lon);
 
     setData(responseData);
   };
@@ -113,15 +91,7 @@ const App = () => {
               padding: 10,
               width: '60%',
             }}>
-            <Details
-              current={data.current}
-              humidity={humidity}
-              sunrise={sunrise}
-              sunset={sunset}
-              pressure={pressure}
-              wind={wind}
-              timezone={data.timezone}
-            />
+            <Details current={data.current} timezone={data.timezone} />
           </View>
           <WeatherDays current={data.daily} />
         </ImageBackground>

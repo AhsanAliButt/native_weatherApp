@@ -3,7 +3,7 @@ import React from 'react';
 import moment from 'moment-timezone';
 
 const FutureForecastItem = ({item}) => {
-  console.log('item is here', item);
+  // console.log('item is here', item);
   const img = {
     uri: 'http://openweathermap.org/img/wn/' + item.weather[0].icon + '@2x.png',
   };
@@ -11,8 +11,8 @@ const FutureForecastItem = ({item}) => {
     <View style={styles.futureForecastItemContainer}>
       <Text style={styles.day}> {moment(item.dt * 1000).format('ddd')}</Text>
       <Image source={img} style={styles.img} />
-      <Text style={styles.temp}>Night - {item.temp.night}C </Text>
-      <Text style={styles.temp}>Day - {item.temp.day}C</Text>
+      <Text style={styles.temp}>Night - {item.temp.night}&#176;C </Text>
+      <Text style={styles.temp}>Day - {item.temp.day}&#176;C</Text>
     </View>
   );
 };
@@ -25,6 +25,7 @@ const FutureForecast = ({data}) => {
       }}>
       {data && data.length > 0
         ? data.map((item, index) => {
+            console.log('item is here', item);
             return <FutureForecastItem key={index} item={item} />;
           })
         : null}

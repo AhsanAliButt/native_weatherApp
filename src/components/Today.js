@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import moment from 'moment';
 const date = 'Monday, June 7';
 
-const Today = () => {
+const Today = ({current, lanlat, timezone}) => {
   const [date, setDate] = useState('');
   useEffect(() => {
     const time = new Date();
