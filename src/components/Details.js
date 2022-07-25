@@ -1,9 +1,18 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import WeatherItem from './WeatherItem';
-import moment from 'moment';
-const Details = ({sunrise, sunset, humidity, pressure, wind, timezone}) => {
+import moment from 'moment-timezone';
+const Details = ({
+  current,
+  sunrise,
+  sunset,
+  humidity,
+  pressure,
+  wind,
+  timezone,
+}) => {
   console.log('Timezone', timezone);
+  console.log('Sunrise', current);
   return (
     <View style={styles.container}>
       <WeatherItem title="Humidity" value={humidity ? humidity : ''} unit="%" />
@@ -14,11 +23,19 @@ const Details = ({sunrise, sunset, humidity, pressure, wind, timezone}) => {
       />
       <WeatherItem
         title="Sunrise"
-        value={sunrise ? moment.unix(sunrise, timezone).format('h:mm a') : ''}
+        value={
+          current
+            ? moment.tz(current.sunrise * 1000, timezone).format('h:mm a')
+            : ''
+        }
       />
       <WeatherItem
         title="Sunset"
-        value={sunset ? moment.unix(sunset).format('h:mm a') : ''}
+        value={
+          current
+            ? moment.tz(current.sunset * 1000, timezone).format('h:mm a')
+            : ''
+        }
       />
       <WeatherItem title="Wind" value={wind ? wind : ''} unit="" />
     </View>

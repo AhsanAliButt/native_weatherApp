@@ -1,29 +1,40 @@
 import {StyleSheet, Text, View, ScrollView, Image} from 'react-native';
 import React from 'react';
 import FutureForecast from './FutureForecast';
+import moment from 'moment-timezone';
 
-const img = {
-  uri: 'http://openweathermap.org/img/wn/10d@2x.png',
-};
-
-const CurrentTempElement = (temp, unit) => {
-  return (
-    <View style={styles.currentTempContainer}>
-      <Image source={img} style={styles.image} />
-      <View style={styles.otherContainer}>
-        <Text style={styles.day}> Sunday </Text>
-        <Text style={styles.temp}> Night - 28C </Text>
-        <Text style={styles.temp}> Day - 35C </Text>
+const CurrentTempElement = ({data}) => {
+  if (data && data.weather) {
+    const img = {
+      uri:
+        'http://openweathermap.org/img/wn/' + data.weather[0].icon + '@4x.png',
+    };
+    console.log('data is here', data);
+    return (
+      <View style={styles.currentTempContainer}>
+        <Image source={img} style={styles.image} />
+        <View style={styles.otherContainer}>
+          <Text style={styles.day}>
+            {' '}
+            {moment(data.dt * 1000).format('dddd')}{' '}
+          </Text>
+          <Text style={styles.temp}> Night -{data.temp.night} </Text>
+          <Text style={styles.temp}> Day - {data.temp.day} </Text>
+        </View>
       </View>
-    </View>
-  );
+    );
+  } else {
+    return null;
+  }
 };
 
-const WeatherDays = () => {
+const WeatherDays = ({current}) => {
   return (
     <ScrollView horizontal={true} style={styles.scrollView}>
-      <CurrentTempElement />
-      <FutureForecast />
+      <CurrentTempElement
+        data={current ? (current.length > 0 ? current[0] : {}) : ''}
+      />
+      <FutureForecast data={current} />
     </ScrollView>
   );
 };

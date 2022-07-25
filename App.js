@@ -24,15 +24,25 @@ const API_KEY = 'a77ce0cdbc8a7ab33d5ba6e407ed3106';
 const App = () => {
   const [data, setData] = useState('');
 
+  console.log('data is here', data);
+
   console.log('data', data.lat);
 
-  const lat = data.lat;
-  const lon = data.lon;
+  // const lat = data.lat;
+  // const lon = data.lon;
   const humidity = data.current.humidity;
   const pressure = data.current.pressure;
   const wind = data.current.wind_speed;
-  const sunrise = data.current.sunrise;
-  const sunset = data.current.sunset;
+  // const sunrise = data.current.sunrise;
+  // const sunset = data.current.sunset;
+
+  const lat = '37.8267';
+  const lon = '-122.4233';
+  // const humidity = '0';
+  // const pressure = '0';
+  // const wind = '0';
+  const sunrise = '0';
+  const sunset = '0';
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -42,7 +52,7 @@ const App = () => {
       },
       error => getWeather(31.4228, 73.0843),
     );
-  }, []);
+  }, [10000]);
 
   const getWeather = async (latitude, longitude) => {
     const response = await fetch(
@@ -52,8 +62,8 @@ const App = () => {
 
     console.log(responseData);
 
-    console.log('Latitude', responseData.lat);
-    console.log('Longitude', responseData.lon);
+    // console.log('Latitude', responseData.lat);
+    // console.log('Longitude', responseData.lon);
 
     setData(responseData);
   };
@@ -104,6 +114,7 @@ const App = () => {
               width: '60%',
             }}>
             <Details
+              current={data.current}
               humidity={humidity}
               sunrise={sunrise}
               sunset={sunset}
@@ -112,7 +123,7 @@ const App = () => {
               timezone={data.timezone}
             />
           </View>
-          <WeatherDays />
+          <WeatherDays current={data.daily} />
         </ImageBackground>
       </View>
     </>

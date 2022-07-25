@@ -1,29 +1,33 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import moment from 'moment-timezone';
 
-const FutureForecastItem = () => {
+const FutureForecastItem = ({item}) => {
+  console.log('item is here', item);
   const img = {
-    uri: 'http://openweathermap.org/img/wn/10d@2x.png',
+    uri: 'http://openweathermap.org/img/wn/' + item.weather[0].icon + '@2x.png',
   };
   return (
     <View style={styles.futureForecastItemContainer}>
-      <Text style={styles.day}> Mon</Text>
+      <Text style={styles.day}> {moment(item.dt * 1000).format('ddd')}</Text>
       <Image source={img} style={styles.img} />
-      <Text style={styles.temp}>Night - 26&#176;C </Text>
-      <Text style={styles.temp}>Day - 36&#176;C</Text>
+      <Text style={styles.temp}>Night - {item.temp.night}C </Text>
+      <Text style={styles.temp}>Day - {item.temp.day}C</Text>
     </View>
   );
 };
 
-const FutureForecast = () => {
+const FutureForecast = ({data}) => {
   return (
     <View
       style={{
         flexDirection: 'row',
       }}>
-      <FutureForecastItem />
-      <FutureForecastItem />
-      <FutureForecastItem />
+      {data && data.length > 0
+        ? data.map((item, index) => {
+            return <FutureForecastItem key={index} item={item} />;
+          })
+        : null}
     </View>
   );
 };
